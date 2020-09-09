@@ -3,7 +3,6 @@ import React, { useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 const Actions = (props) => {
-  const { setRestaurants } = props;
   // or
   // const setRestaurants = props.setRestaurants;
 
@@ -38,25 +37,47 @@ const Actions = (props) => {
       func = (a, b) => b[sortBy] - a[sortBy];
     }
 
-    setRestaurants([...restaurants].sort(func));
+    props.setRestaurants([...restaurants].sort(func));
     // console.log({ sortedRestaurants });
   };
 
-  const handleFiltering = (restaurants, filter) => {};
+  // restaurants.description
+  // regex = /$
+  // found = restaurants.description.match(regex)
+
+
+
+
+  const handleFiltering = (restaurants, filter) => {
+    const filteredRestaurants = restaurants.filter((item) => {
+      let found = item.description.match(/\$\$\$/g);
+
+      console.log(found);
+      return found;
+    });
+
+    console.log(filteredRestaurants);
+
+    props.setRestaurants(filteredRestaurants);
+  };
+
+
 
   const renderPriceFilter = () => {
     if (showPriceFilter) {
       return (
         <div>
-          <button>
+          <button onClick={() => handleFiltering(props.restaurants, "$$$")}>
+            <span>$$$</span>
+          </button>
+          <button onClick={() => handleFiltering(props.restaurants, "$")}>
             <span>$</span>
           </button>
         </div>
       );
-    } 
+    }
   };
 
-  
   return (
     <div className="actions">
       <span className="button-group">
