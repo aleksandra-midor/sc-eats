@@ -8,8 +8,12 @@ const Actions = (props) => {
   // const setRestaurants = props.setRestaurants;
 
   const [showSortSelector, setSortSelector] = useState(false);
+  const [showPriceFilter, setPriceFilter] = useState(false);
 
-
+  /** test
+   * - 1
+   * - 2
+   */
   const handleGeneralSorting = (restaurants, sortBy) => {
     // console.log(restaurants);
     // console.log(sortBy);
@@ -33,12 +37,26 @@ const Actions = (props) => {
     } else {
       func = (a, b) => b[sortBy] - a[sortBy];
     }
+
     setRestaurants([...restaurants].sort(func));
     // console.log({ sortedRestaurants });
   };
 
+  const handleFiltering = (restaurants, filter) => {};
 
+  const renderPriceFilter = () => {
+    if (showPriceFilter) {
+      return (
+        <div>
+          <button>
+            <span>$</span>
+          </button>
+        </div>
+      );
+    } 
+  };
 
+  
   return (
     <div className="actions">
       <span className="button-group">
@@ -54,12 +72,12 @@ const Actions = (props) => {
                 type="radio"
                 name="generalSort"
                 onChange={(event) => {
-                    console.log('popularity')
+                  console.log("popularity");
                   handleGeneralSorting(
                     props.restaurants,
                     event.currentTarget.value
-                  )}
-                }
+                  );
+                }}
               />
             </label>
             <label>
@@ -93,12 +111,14 @@ const Actions = (props) => {
           </div>
         )}
       </span>
+
       {/* TODO */}
       {/* <!-- Implement as assignment for Thursday --> */}
       <span className="button-group">
-        <button>
+        <button onClick={() => setPriceFilter(!showPriceFilter)}>
           <span>Price Range</span> <FontAwesomeIcon icon={"chevron-down"} />
         </button>
+        {renderPriceFilter()};
       </span>
       <span className="button-group">
         <button>

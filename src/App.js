@@ -8,15 +8,22 @@ import data from './data.json'
 library.add(faChevronDown)
 
 function App() {
+  /** stan zmienialny */
   const [restaurants, setRestaurants] = useState([]);
+
+  // nie będę tego zmieniać
+  const [allRestaurants, setAllRestaurants] = useState([]);
+
 
   // Explore effect! (for classfull, this was related to componentWillMount, componentDidMount side effects) )
   React.useEffect(() => {
     setRestaurants(data.restarants);
+    setAllRestaurants(data.restarants);
   }, [])
 
 
   const [restaurantName, setName] = useState('');
+  
 
   return (
     <div className="App">
