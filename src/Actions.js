@@ -8,6 +8,7 @@ const Actions = (props) => {
 
   const [showSortSelector, setSortSelector] = useState(false);
   const [showPriceFilter, setPriceFilter] = useState(false);
+  const [showFoodFilter, setFoodFilter] = useState(false);
 
   /** test
    * - 1
@@ -30,6 +31,7 @@ const Actions = (props) => {
     //     }
     //     return b[sortBy] - a[sortBy]
     // }); // not that easy?
+    
     let func;
     if (sortBy === "maxDeliveryTime") {
       func = (a, b) => a[sortBy] - b[sortBy]; // not that easy?
@@ -41,24 +43,21 @@ const Actions = (props) => {
     // console.log({ sortedRestaurants });
   };
 
-  // restaurants.description
-  // regex = /$
-  // found = restaurants.description.match(regex)
-
-
-
-
-  const handleFiltering = (restaurants, filter) => {
+  const handlePriceFiltering = (restaurants, filter) => {
     const filteredRestaurants = restaurants.filter((item) => {
-      let found = item.description.match(/\$\$\$/g);
-
-      console.log(found);
-      return found;
+      let found = item.description.match(/\$/g);
+      if (found !== null) {
+        return found.length === filter 
+      }
     });
 
     console.log(filteredRestaurants);
 
     props.setRestaurants(filteredRestaurants);
+  };
+
+  const handleFoodFiltering = (restaurants, filter) => {
+    
   };
 
 
@@ -67,11 +66,17 @@ const Actions = (props) => {
     if (showPriceFilter) {
       return (
         <div>
-          <button onClick={() => handleFiltering(props.restaurants, "$$$")}>
+          <button onClick={() => handlePriceFiltering(props.restaurants, 1)}>
+            <span>$</span>
+          </button>
+          <button onClick={() => handlePriceFiltering(props.restaurants, 2)}>
+            <span>$$</span>
+          </button>
+          <button onClick={() => handlePriceFiltering(props.restaurants, 3)}>
             <span>$$$</span>
           </button>
-          <button onClick={() => handleFiltering(props.restaurants, "$")}>
-            <span>$</span>
+          <button onClick={() => handlePriceFiltering(props.restaurants, 4)}>
+            <span>$$$$</span>
           </button>
         </div>
       );
