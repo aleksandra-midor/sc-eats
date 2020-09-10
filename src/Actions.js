@@ -10,10 +10,8 @@ const Actions = (props) => {
   const [showPriceFilter, setPriceFilter] = useState(false);
   const [showFoodFilter, setFoodFilter] = useState(false);
 
-  /** test
-   * - 1
-   * - 2
-   */
+/** GENERAL SORTING */  
+
   const handleGeneralSorting = (restaurants, sortBy) => {
     // console.log(restaurants);
     // console.log(sortBy);
@@ -31,7 +29,7 @@ const Actions = (props) => {
     //     }
     //     return b[sortBy] - a[sortBy]
     // }); // not that easy?
-    
+
     let func;
     if (sortBy === "maxDeliveryTime") {
       func = (a, b) => a[sortBy] - b[sortBy]; // not that easy?
@@ -42,6 +40,10 @@ const Actions = (props) => {
     props.setRestaurants([...restaurants].sort(func));
     // console.log({ sortedRestaurants });
   };
+
+
+
+/** PRICE FILTER */ 
 
   const handlePriceFiltering = (restaurants, filter) => {
     const filteredRestaurants = restaurants.filter((item) => {
@@ -55,11 +57,6 @@ const Actions = (props) => {
 
     props.setRestaurants(filteredRestaurants);
   };
-
-  const handleFoodFiltering = (restaurants, filter) => {
-    
-  };
-
 
 
   const renderPriceFilter = () => {
@@ -82,6 +79,39 @@ const Actions = (props) => {
       );
     }
   };
+
+
+
+
+
+/** FOOD FILTER */
+
+  const handleFoodFiltering = (restaurants, filter) => {
+    
+  };
+
+  const renderFoodFilter = () => {
+    if (showFoodFilter) {
+      return (
+        <div>
+        <button 
+        // onClick={() => handleFoodFiltering()}
+        >
+          <span>Vegetarian</span>
+        </button>
+        <button>
+          <span>Vegan</span>
+        </button>
+        <button>
+          <span>Non-vegan</span>
+        </button>
+        </div>
+      )
+    }
+  }
+
+
+
 
   return (
     <div className="actions">
@@ -147,9 +177,10 @@ const Actions = (props) => {
         {renderPriceFilter()};
       </span>
       <span className="button-group">
-        <button>
+        <button onClick={() => setFoodFilter(!showFoodFilter)}>
           <span>Dietary choice</span> <FontAwesomeIcon icon={"chevron-down"} />
         </button>
+        {renderFoodFilter()}
       </span>
     </div>
   );
