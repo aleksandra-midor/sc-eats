@@ -11,14 +11,9 @@ function App() {
   /** stan zmienialny */
   const [restaurants, setRestaurants] = useState([]);
 
-  // nie będę tego zmieniać
-  const [allRestaurants, setAllRestaurants] = useState([]);
-
-
   // Explore effect! (for classfull, this was related to componentWillMount, componentDidMount side effects) )
   React.useEffect(() => {
     setRestaurants(data.restarants);
-    setAllRestaurants(data.restarants);
   }, [])
 
 

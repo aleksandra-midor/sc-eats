@@ -1,8 +1,16 @@
 import React, { useState } from "react";
 // read: https://fontawesome.com/how-to-use/on-the-web/using-with/react
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import data from './data.json'
 
 const Actions = (props) => {
+
+  const [allRestaurants, setAllRestaurants] = useState([]);
+
+  React.useEffect(() => {
+    setAllRestaurants(data.restarants);
+  }, [])
+
   // or
   // const setRestaurants = props.setRestaurants;
 
@@ -41,6 +49,8 @@ const Actions = (props) => {
     // console.log({ sortedRestaurants });
   };
 
+
+
   /** PRICE FILTER */
 
   const handlePriceFiltering = (array, filter) => {
@@ -51,74 +61,72 @@ const Actions = (props) => {
       }
     });
 
-    console.log(priceFilteredRestaurants);
-
     props.setRestaurants(priceFilteredRestaurants);
   };
-
-
-  const handleFoodFiltering = (array, filter) => {
-
-    const foodFilteredRestaurants = array.filter((singleRestaurant) => {
-      let foodType = [];
-      singleRestaurant.menu.forEach(category => {
-        category.items.forEach(meal => {
-          foodType.push(meal.typeOfMeal)
-        })
-      })
-
-      const foundFood = foodType.find(element => element === filter)
-      
-      console.log(foundFood)
-      console.log(singleRestaurant.name, foodType)
-      
-      return foundFood
-    })
-
-console.log(foodFilteredRestaurants)
-
-props.setRestaurants(foodFilteredRestaurants)
-
-  };
-
-
 
   const renderPriceFilter = () => {
     if (showPriceFilter) {
       return (
         <div>
-          <button onClick={() => handlePriceFiltering(props.restaurants, 1)}>
-            <span>$</span>
+          <button onClick={() => {
+            handlePriceFiltering(allRestaurants, 1); 
+            setPriceFilter(false)}}>$
           </button>
-          <button onClick={() => handlePriceFiltering(props.restaurants, 2)}>
-            <span>$$</span>
+          <button onClick={() => {
+            handlePriceFiltering(allRestaurants, 2);
+            setPriceFilter(false)}}>$$
           </button>
-          <button onClick={() => handlePriceFiltering(props.restaurants, 3)}>
-            <span>$$$</span>
+          <button onClick={() => {
+            handlePriceFiltering(allRestaurants, 3);
+            setPriceFilter(false)}}>$$$
           </button>
-          <button onClick={() => handlePriceFiltering(props.restaurants, 4)}>
-            <span>$$$$</span>
+          <button onClick={() => {
+            handlePriceFiltering(allRestaurants, 4);
+            setPriceFilter(false)}}>$$$$
           </button>
         </div>
       );
     }
   };
 
+
+
   /** FOOD FILTER */
+
+  const handleFoodFiltering = (array, filter) => {
+    const foodFilteredRestaurants = array.filter((singleRestaurant) => {
+      let foodType = [];
+      singleRestaurant.menu.forEach((category) => {
+        category.items.forEach((meal) => {
+          foodType.push(meal.typeOfMeal);
+        });
+      });
+
+      const foundFood = foodType.find((element) => element === filter);
+
+      return foundFood;
+    });
+
+    props.setRestaurants(foodFilteredRestaurants);
+  };
 
   const renderFoodFilter = () => {
     if (showFoodFilter) {
       return (
         <div>
           <button
-          onClick={() => handleFoodFiltering(props.restaurants, 'vegan')}
+            onClick={() => {handleFoodFiltering(allRestaurants, "vegan"); setFoodFilter(false)}}
           >
             <span>Vegan</span>
-          </button >
-          <button onClick={() => handleFoodFiltering(props.restaurants, 'vegetarian')}>
+          </button>
+          <button
+            onClick={() => {handleFoodFiltering(allRestaurants, "vegetarian"); setFoodFilter(false)}}
+          >
             <span>Vegetarian</span>
           </button>
-          <button onClick={() => handleFoodFiltering(props.restaurants, 'non vegan')}>
+          <button
+            onClick={() => {handleFoodFiltering(allRestaurants, "non vegan"); setFoodFilter(false)}}
+          >
             <span>Non-vegan</span>
           </button>
         </div>
@@ -126,6 +134,8 @@ props.setRestaurants(foodFilteredRestaurants)
     }
   };
 
+
+  
   /** ..cd ACTIONS */
 
   return (
