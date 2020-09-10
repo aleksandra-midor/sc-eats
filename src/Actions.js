@@ -10,7 +10,7 @@ const Actions = (props) => {
   const [showPriceFilter, setPriceFilter] = useState(false);
   const [showFoodFilter, setFoodFilter] = useState(false);
 
-/** GENERAL SORTING */  
+  /** GENERAL SORTING */
 
   const handleGeneralSorting = (restaurants, sortBy) => {
     // console.log(restaurants);
@@ -41,22 +41,46 @@ const Actions = (props) => {
     // console.log({ sortedRestaurants });
   };
 
+  /** PRICE FILTER */
 
-
-/** PRICE FILTER */ 
-
-  const handlePriceFiltering = (restaurants, filter) => {
-    const filteredRestaurants = restaurants.filter((item) => {
-      let found = item.description.match(/\$/g);
+  const handlePriceFiltering = (array, filter) => {
+    const priceFilteredRestaurants = array.filter((singleRestaurant) => {
+      let found = singleRestaurant.description.match(/\$/g);
       if (found !== null) {
-        return found.length === filter 
+        return found.length === filter;
       }
     });
 
-    console.log(filteredRestaurants);
+    console.log(priceFilteredRestaurants);
 
-    props.setRestaurants(filteredRestaurants);
+    props.setRestaurants(priceFilteredRestaurants);
   };
+
+
+  const handleFoodFiltering = (array, filter) => {
+
+    const foodFilteredRestaurants = array.filter((singleRestaurant) => {
+      let foodType = [];
+      singleRestaurant.menu.forEach(category => {
+        category.items.forEach(meal => {
+          foodType.push(meal.typeOfMeal)
+        })
+      })
+
+      const foundFood = foodType.find(element => element === filter)
+      
+      console.log(foundFood)
+      console.log(singleRestaurant.name, foodType)
+      
+      return foundFood
+    })
+
+console.log(foodFilteredRestaurants)
+
+props.setRestaurants(foodFilteredRestaurants)
+
+  };
+
 
 
   const renderPriceFilter = () => {
@@ -80,38 +104,29 @@ const Actions = (props) => {
     }
   };
 
-
-
-
-
-/** FOOD FILTER */
-
-  const handleFoodFiltering = (restaurants, filter) => {
-    
-  };
+  /** FOOD FILTER */
 
   const renderFoodFilter = () => {
     if (showFoodFilter) {
       return (
         <div>
-        <button 
-        // onClick={() => handleFoodFiltering()}
-        >
-          <span>Vegetarian</span>
-        </button>
-        <button>
-          <span>Vegan</span>
-        </button>
-        <button>
-          <span>Non-vegan</span>
-        </button>
+          <button
+          onClick={() => handleFoodFiltering(props.restaurants, 'vegan')}
+          >
+            <span>Vegan</span>
+          </button >
+          <button onClick={() => handleFoodFiltering(props.restaurants, 'vegetarian')}>
+            <span>Vegetarian</span>
+          </button>
+          <button onClick={() => handleFoodFiltering(props.restaurants, 'non vegan')}>
+            <span>Non-vegan</span>
+          </button>
         </div>
-      )
+      );
     }
-  }
+  };
 
-
-
+  /** ..cd ACTIONS */
 
   return (
     <div className="actions">
