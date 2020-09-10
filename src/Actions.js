@@ -1,16 +1,15 @@
 import React, { useState } from "react";
 // read: https://fontawesome.com/how-to-use/on-the-web/using-with/react
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import data from './data.json'
-import "./Actions.css"
+import data from "./data.json";
+import "./Actions.css";
 
 const Actions = (props) => {
-
   const [allRestaurants, setAllRestaurants] = useState([]);
 
   React.useEffect(() => {
     setAllRestaurants(data.restarants);
-  }, [])
+  }, []);
 
   // or
   // const setRestaurants = props.setRestaurants;
@@ -18,7 +17,6 @@ const Actions = (props) => {
   const [showSortSelector, setSortSelector] = useState(false);
   const [showPriceFilter, setPriceFilter] = useState(false);
   const [showFoodFilter, setFoodFilter] = useState(false);
-
 
   /** GENERAL SORTING */
 
@@ -51,7 +49,6 @@ const Actions = (props) => {
     // console.log({ sortedRestaurants });
   };
 
-
   /** PRICE FILTER */
 
   const handlePriceFiltering = (array, filter) => {
@@ -68,28 +65,47 @@ const Actions = (props) => {
   const renderPriceFilter = () => {
     if (showPriceFilter) {
       return (
-        <div>
-          <button className='Button' onClick={() => {
-            handlePriceFiltering(allRestaurants, 1); 
-            setPriceFilter(false)}}>$
+        <div className="PriceDropDown">
+          <button
+            className="PriceButton"
+            onClick={() => {
+              handlePriceFiltering(allRestaurants, 1);
+              setPriceFilter(false);
+            }}
+          >
+            $
           </button>
-          <button onClick={() => {
-            handlePriceFiltering(allRestaurants, 2);
-            setPriceFilter(false)}}>$$
+          <button
+            className="PriceButton"
+            onClick={() => {
+              handlePriceFiltering(allRestaurants, 2);
+              setPriceFilter(false);
+            }}
+          >
+            $$
           </button>
-          <button onClick={() => {
-            handlePriceFiltering(allRestaurants, 3);
-            setPriceFilter(false)}}>$$$
+          <button
+            className="PriceButton"
+            onClick={() => {
+              handlePriceFiltering(allRestaurants, 3);
+              setPriceFilter(false);
+            }}
+          >
+            $$$
           </button>
-          <button onClick={() => {
-            handlePriceFiltering(allRestaurants, 4);
-            setPriceFilter(false)}}>$$$$
+          <button
+            className="PriceButton"
+            onClick={() => {
+              handlePriceFiltering(allRestaurants, 4);
+              setPriceFilter(false);
+            }}
+          >
+            $$$$
           </button>
         </div>
       );
     }
   };
-
 
   /** FOOD FILTER */
 
@@ -114,40 +130,50 @@ const Actions = (props) => {
     if (showFoodFilter) {
       return (
         <div>
-            <label>
-              Vegan
-              <input
-                value="vegan"
-                type="radio"
-                name="foodFilter"
-                onChange={() => {handleFoodFiltering(allRestaurants, "vegan"); setFoodFilter(false)}}
-              />
-            </label>
-            <label>
-              Vegetarian
-              <input
-                value="vegetarian"
-                type="radio"
-                name="foodFilter"
-                onChange={() => {handleFoodFiltering(allRestaurants, "vegetarian"); setFoodFilter(false)}}
-              />
-            </label>
-            <label>
-              Non-vegan
-              <input
-                value="non vegan"
-                type="radio"
-                name="foodFilter"
-                onChange={() => {handleFoodFiltering(allRestaurants, "non vegan"); setFoodFilter(false)}}
-              />
-            </label>
+          <label>
+            <FontAwesomeIcon icon={"chevron-down"} />
+            Vegan
+            <input
+              value="vegan"
+              type="radio"
+              name="foodFilter"
+              onChange={() => {
+                handleFoodFiltering(allRestaurants, "vegan");
+                setFoodFilter(false);
+              }}
+            />
+          </label>
+          <label>
+            <FontAwesomeIcon icon={"chevron-down"} />
+            Vegetarian
+            <input
+              value="vegetarian"
+              type="radio"
+              name="foodFilter"
+              onChange={() => {
+                handleFoodFiltering(allRestaurants, "vegetarian");
+                setFoodFilter(false);
+              }}
+            />
+          </label>
+          <label>
+            <FontAwesomeIcon icon={"chevron-down"} />
+            Non-vegan
+            <input
+              value="non vegan"
+              type="radio"
+              name="foodFilter"
+              onChange={() => {
+                handleFoodFiltering(allRestaurants, "non vegan");
+                setFoodFilter(false);
+              }}
+            />
+          </label>
         </div>
       );
     }
   };
 
-
-  
   /** ..cd ACTIONS */
 
   return (

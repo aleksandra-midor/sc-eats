@@ -1,7 +1,21 @@
-.Button {
+.PriceButton {
   /* border: 1px solid; */
   border-radius: 6px;
-  box-shadow: 5px 5px 10px rgba(255, 13, 13, 0.1);
   padding: 0.5rem;
-  margin-top: 1rem;
+}
+
+.PriceButton:hover {
+  background: rgb(6, 193, 103);
+}
+.PriceButton:active {
+  background: darkgray
+}
+
+.PriceButton + .PriceButton {
+  margin-left: 0.5rem 
+}
+
+.actions .button-group .PriceDropDown {
+  flex-direction: row;
+  width: unset;
 }
