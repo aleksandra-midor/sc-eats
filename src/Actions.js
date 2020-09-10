@@ -2,6 +2,7 @@ import React, { useState } from "react";
 // read: https://fontawesome.com/how-to-use/on-the-web/using-with/react
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import data from './data.json'
+import "./Actions.css"
 
 const Actions = (props) => {
 
@@ -17,6 +18,7 @@ const Actions = (props) => {
   const [showSortSelector, setSortSelector] = useState(false);
   const [showPriceFilter, setPriceFilter] = useState(false);
   const [showFoodFilter, setFoodFilter] = useState(false);
+
 
   /** GENERAL SORTING */
 
@@ -50,7 +52,6 @@ const Actions = (props) => {
   };
 
 
-
   /** PRICE FILTER */
 
   const handlePriceFiltering = (array, filter) => {
@@ -68,7 +69,7 @@ const Actions = (props) => {
     if (showPriceFilter) {
       return (
         <div>
-          <button onClick={() => {
+          <button className='Button' onClick={() => {
             handlePriceFiltering(allRestaurants, 1); 
             setPriceFilter(false)}}>$
           </button>
@@ -88,7 +89,6 @@ const Actions = (props) => {
       );
     }
   };
-
 
 
   /** FOOD FILTER */
@@ -114,21 +114,33 @@ const Actions = (props) => {
     if (showFoodFilter) {
       return (
         <div>
-          <button
-            onClick={() => {handleFoodFiltering(allRestaurants, "vegan"); setFoodFilter(false)}}
-          >
-            <span>Vegan</span>
-          </button>
-          <button
-            onClick={() => {handleFoodFiltering(allRestaurants, "vegetarian"); setFoodFilter(false)}}
-          >
-            <span>Vegetarian</span>
-          </button>
-          <button
-            onClick={() => {handleFoodFiltering(allRestaurants, "non vegan"); setFoodFilter(false)}}
-          >
-            <span>Non-vegan</span>
-          </button>
+            <label>
+              Vegan
+              <input
+                value="vegan"
+                type="radio"
+                name="foodFilter"
+                onChange={() => {handleFoodFiltering(allRestaurants, "vegan"); setFoodFilter(false)}}
+              />
+            </label>
+            <label>
+              Vegetarian
+              <input
+                value="vegetarian"
+                type="radio"
+                name="foodFilter"
+                onChange={() => {handleFoodFiltering(allRestaurants, "vegetarian"); setFoodFilter(false)}}
+              />
+            </label>
+            <label>
+              Non-vegan
+              <input
+                value="non vegan"
+                type="radio"
+                name="foodFilter"
+                onChange={() => {handleFoodFiltering(allRestaurants, "non vegan"); setFoodFilter(false)}}
+              />
+            </label>
         </div>
       );
     }
