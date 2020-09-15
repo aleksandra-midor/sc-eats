@@ -131,7 +131,7 @@ const Actions = (props) => {
       return (
         <div>
           <label>
-            <FontAwesomeIcon icon={"chevron-down"} />
+            <FontAwesomeIcon icon={"leaf"} />
             Vegan
             <input
               value="vegan"
@@ -144,7 +144,7 @@ const Actions = (props) => {
             />
           </label>
           <label>
-            <FontAwesomeIcon icon={"chevron-down"} />
+            <FontAwesomeIcon icon={"heart"} />
             Vegetarian
             <input
               value="vegetarian"
@@ -157,7 +157,7 @@ const Actions = (props) => {
             />
           </label>
           <label>
-            <FontAwesomeIcon icon={"chevron-down"} />
+            <FontAwesomeIcon icon={"egg"} />
             Non-vegan
             <input
               value="non vegan"
