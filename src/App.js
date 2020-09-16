@@ -4,8 +4,8 @@ import Actions from "./Actions";
 import { library } from "@fortawesome/fontawesome-svg-core";
 import { faChevronDown, faLeaf, faHeart, faEgg } from "@fortawesome/free-solid-svg-icons";
 import data from "./data.json";
-import Dashboard from "./pages/Dashboard/Dashboard.js";
-import Faq from "./pages/FAQ/Faq.js";
+// import Dashboard from "./pages/Dashboard/Dashboard.js";
+// import Faq from "./pages/FAQ/Faq.js";
 import { Router, Link } from "@reach/router";
 
 library.add(faChevronDown, faLeaf, faHeart, faEgg);
