@@ -51,12 +51,31 @@ const Actions = (props) => {
 
   /** PRICE FILTER */
 
+
   const handlePriceFiltering = (array, filter) => {
     const priceFilteredRestaurants = array.filter((singleRestaurant) => {
-      let found = singleRestaurant.description.match(/\$/g);
-      if (found !== null) {
-        return found.length === filter;
+      let highestPrice;
+
+      singleRestaurant.menu.forEach((menuItem) => {
+        const priceList = menuItem.items.map((item) => item.price);
+        console.log(priceList);
+        highestPrice = Math.max(...priceList);
+        return highestPrice;
+      });
+
+      let range = 0;
+
+      if (highestPrice <= 100) {
+        range = 1;
+      } else if (100 < highestPrice && highestPrice <= 200) {
+        range = 2;
+      } else if (200 < highestPrice && highestPrice <= 300) {
+        range = 3;
+      } else if (300 < highestPrice && highestPrice <= 500) {
+        range = 4;
       }
+      console.log(range, filter);
+      return range === filter;
     });
 
     props.setRestaurants(priceFilteredRestaurants);

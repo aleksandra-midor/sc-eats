@@ -33,20 +33,27 @@ const getTag = (restaurant) => {
   const { menu } = restaurant;
   let vegan = 0;
   let nonVegan = 0;
+  let vegetarian = 0;
   menu.forEach((menuItem) => {
     vegan += menuItem.items.filter((item) => item.typeOfMeal === "vegan")
       .length;
     nonVegan += menuItem.items.filter((item) => item.typeOfMeal === "non vegan")
       .length;
+    vegetarian += menuItem.items.filter((item) => item.typeOfMeal === "vegetarian")
+      .length;
   });
   let displayString = "";
-  if (vegan > 0 && nonVegan === 0) {
-    displayString = "vegeterian";
-  } else if (vegan === 0 && nonVegan > 0) {
-    displayString = "non-vegan";
-  } else {
-    displayString = "vegan och non vegan";
-  }
+if (vegan > 0) {
+  displayString = "•vegan"
+}
+
+if (nonVegan > 0) {
+displayString += "•non vegan" 
+} 
+
+if (vegetarian > 0) {
+  displayString += "•vegetarian"
+}
   return (
     <span>
       {displayString}
@@ -78,7 +85,7 @@ function App() {
           <Link to="/">
             SC<span style={{ color: "#06c167" }}>eats</span>
           </Link>
-          | <Link to="dashboard">Dashboard</Link> | <Link to="faq">Faq</Link>
+          {/* | <Link to="dashboard">Dashboard</Link> | <Link to="faq">Faq</Link> */}
         </nav>
         <Actions setRestaurants={setRestaurants} restaurants={restaurants} />
         <form className="searchFood" onSubmit={(e) => e.preventDefault()}>
@@ -101,8 +108,8 @@ function App() {
 
       <Router>
         <Index restaurants={restaurants} path="/" />
-        <Dashboard path="dashboard" />
-        <Faq path="faq" />
+        {/* <Dashboard path="dashboard" />
+        <Faq path="faq" /> */}
       </Router>
     </div>
   );
